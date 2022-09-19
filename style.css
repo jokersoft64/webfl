@@ -1,0 +1,330 @@
+:root {
+    --primary-color: black
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Rubik",sans-serif;
+}
+body{
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        var(--primary-color) 50%,
+        #f9fbfc 50%
+    ) fixed;
+}
+.container{
+    background-color: #ffffff;
+    width: 400px;
+    height: 680px;
+    padding: 25px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    box-shadow: 15px 30px 35px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    -webkit-perspective: 300px;
+    perspective: 300px;
+}
+.stats{
+    text-align: right;
+    color: #101020;
+    font-weight: 500;
+    line-height: 25px;
+}
+.coin{
+    height: 150px;
+    width: 150px;
+    position: relative;
+    margin: 25px auto;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+}
+.coin img{
+    width: 145px;
+}
+.heads,.tails{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+}
+.tails{
+    transform: rotateX(180deg);
+}
+@keyframes spin-tails{
+    0%{
+        transform: rotateX(0);
+    }
+    100%{
+        transform: rotateX(1980deg);
+    }
+}
+@keyframes spin-heads{
+    0%{
+        transform: rotateX(0);
+    }
+    100%{
+        transform: rotateX(2160deg);
+    }
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    width: 100%;
+}
+#errorMsg{
+    text-align: center;
+    margin-bottom: 15px;
+    color: red
+}
+button{
+    width: 120px;
+    padding: 10px 0;
+    border: 2.5px solid var(--primary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+#placeBetBtn, #doubleBetBtn, .bidAmountBtnSelected{
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+#withdrawBtn, .bidAmountBtnUnselected{
+    background-color: #ffffff;
+    color: var(--primary-color);
+}
+
+.bidAmountBtn {
+    width: 85px;
+    padding: 5px 0;
+}
+#betAmountSelect > .buttons {
+    margin-bottom: 5px;
+}
+
+.bidAmountBtn:disabled {
+    background: #dddddd !important;
+}
+
+#betAmountSelect, #betRadio, #winBalance{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#betAmountSelect {
+    width: 100%;
+}
+
+/* #winBalance {
+    color: #101020;
+    font-weight: 500;
+    line-height: 25px;
+} */
+
+.loader {
+    display: none;
+    margin: 25px auto;
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid var(--primary-color);; /* Blue */
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+
+#loader-wrapper{
+    min-height: 25px;
+    margin-bottom: 20px;
+}
+
+#winBalance-wrapper{
+    min-height: 54px;
+    margin-bottom: 15px;
+}
+#betBtn-wrapper{
+    min-height: 75px;
+    margin-bottom: 15px;
+}
+
+#betRadio-wrapper{
+    min-height: 32px;
+    margin-bottom: 10px;
+}
+
+#betAmountSelect-wrapper{
+    min-height: 127px;
+    margin-bottom: 15px;
+}
+#stats-wrapper{
+    min-height: 25px;
+    margin-top: 25px;
+}
+
+h1{
+    margin-top: 15px;
+    text-align: center;
+}
+
+#btn-connect{
+    background-color: #ffffff;
+    color: var(--primary-color);
+}
+
+#btn-connect{
+    background-color: #ffffff;
+    color: var(--primary-color);
+}
+#btn-connec:active {
+    background-color: var(--primary-color);
+}
+.toggle-icons{ 
+    position: absolute;
+    width: 100%;
+    margin-left: -25px;
+}
+.toggle-icons > span > i{ 
+    line-height: 48px;
+}
+#toggle-icon-left{
+    position: absolute;
+    left: 30px;
+}
+#toggle-icon-right{
+    position: absolute;
+    right: 30px;
+}
+input[type="radio"]{
+    display: none;
+}
+
+input[type="radio"]+label{
+    width: 85px;
+}
+
+input[type="radio"]:checked+label{
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+input[type="radio"]:not(:checked)+label{
+    background-color: #ffffff;
+    color: var(--primary-color);
+}
+
+.betChoiseLabel{   
+    width: 120px;
+    padding: 10px 0;
+    border: 2.5px solid var(--primary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.betRadio-wrapper-wrapper{
+    display: none;
+    position: absolute;
+    width: 100%;
+    margin-left: -25px;
+    padding-top: 75px;
+}
+.betRadio{
+    position: relative;
+}
+
+#headsLabel{
+    float: left;
+    margin-left: 25px;
+}
+
+#tailsLabel{
+    float: right;
+    margin-right: 25px;
+}
+
+/* --- MODAL --- */
+
+#modal{
+    display: none;
+    z-index: 999;
+}
+
+#loaderModal {
+    height: 500px;
+    padding-top: 250px;
+}
+
+.tableFixHead {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.tableFixHead > table {
+    display: none;
+    width: 100%;    
+}
+
+.tableFixHead tbody {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    height: 550px;
+}
+
+.tableFixHead thead tr, .tableFixHead tbody tr {
+    display: block;
+    border-bottom: 1px solid grey;
+}
+
+.tableFixHead th,
+.tableFixHead td {
+    padding: 5px 10px;
+}
+
+#leaderboard-table th,
+#leaderboard-table td {
+    width: 90%;
+}
+
+#history-table th:nth-child(1),
+#history-table td:nth-child(1)  {
+     width: 125px; 
+}
+#history-table th:nth-child(2),
+#history-table td:nth-child(2)  {
+    width: 100px; 
+     text-align: start;
+}
+#history-table th:nth-child(3),
+#history-table td:nth-child(3)  {
+    width: 25px; 
+     text-align: center;
+}
+#history-table th:nth-child(4),
+#history-table td:nth-child(4)  {
+    width: 95px; 
+     text-align: end;
+     font-size: 12px;
+}
+
+#p-history-table th,
+#p-history-table td {
+    width: 25%;
+}
+
+
+
+

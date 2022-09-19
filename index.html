@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coin_flip</title>
+    <!--Animated favicon-->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="./web3_misc.js"></script>
+    <script src="./script.js"></script>
+    <script src="./misc.js"></script>
+</head>
+
+<body>
+    <div class="container" id="modal">
+        <div>
+            
+            <span class="toggle-icons">
+                <span id="toggle-icon-right"> 
+                    <i class="fa fa-times" id="exit-leaderboard" style="display: block;" onclick="closeModal()"></i>
+                </span>
+            </span>
+            <h1 id="modalTitle"></h1>
+        </div>
+        <div id="loaderModal">
+            <div class="loader" style="display: block;"></div>
+        </div>
+        <div class="tableFixHead">
+            <table id="leaderboard-table" style="display: none;">
+              <thead><tr></tr></thead>
+              <tbody id="leaderboard-table-body">
+              </tbody>
+            </table>
+            <table id="p-history-table" style="display: none;">
+                <thead>
+                  <tr>
+                    <th>status</th>
+                    <th>bet</th>
+                    <th>amount</th>
+                    <th>date</th>
+                  </tr>
+                </thead>
+                <tbody id="p-history-table-body">
+                </tbody>
+            </table>
+            <table id="history-table" style="display: none;">
+                <thead><tr></tr></thead>
+                <tbody id="history-table-body"> 
+                </tbody>
+            </table>
+          </div>
+
+
+    </div>
+    <div class="container">
+        
+        <div>
+            </span>
+            <span id="toggle-icon" class="toggle-icons" style="display: none">
+                <span id="toggle-icon-left">
+                    <i class="fa-solid fa-award" onclick="showLeaderboard()"></i>
+                    <i class="fa-solid fa-clock-rotate-left" style="margin-left: 20px;" onclick="showPublicHistory()"></i>
+                </span>
+                <span id="toggle-icon-right">
+                    <!-- <i class="fa fa-sign-out-alt" id="btn-disconnect" style="display: block;"></i> -->
+                </span>
+            </span>
+            <h1>coin_flip</h1>
+        </div>
+        <div id="betRadio-wrapper" class="betRadio-wrapper-wrapper">
+            <div id="betRadio" class="betRadio">
+                <input type="radio" id="radio0" name="coin" value="0" checked> 
+                <label for="radio0" id="headsLabel" class="betChoiseLabel">Heads</label>
+                <input type="radio" id="radio1" name="coin" value="1">
+                <label for="radio1" id="tailsLabel" class="betChoiseLabel">Tails</label>
+            </div>
+        </div>
+        <div class="coin" id="coin">
+            <div class="heads">
+                <img src="heads.svg">
+            </div>
+            <div class="tails">
+                <img src="tails.svg">
+            </div>
+        </div>
+
+
+        <div>
+
+            <div id="prepare">
+                <div class="buttons">
+                    <button id="btn-connect">
+                        Connect
+                    </button>
+                </div>
+            </div>
+
+            <div id="connected" style="display: none">
+
+                <div id="winBalance-wrapper">
+                    <div class="buttons">
+                        <button id="winBalance" class="bidAmountBtn bidAmountBtnUnselected"
+                            style="display: none;"></button>
+                    </div>
+                </div>
+
+                <div id="betBtn-wrapper">
+                    <div class="buttons">
+                        <div class="loader" id="loader"></div>
+                        <button id="placeBetBtn" onclick="placeBet()">Place Bet</button>
+                        <button id="doubleBetBtn" onclick="placeDoubleBet()" style="display: none;">Double Bet</button>
+                        <button id="withdrawBtn" onclick="withdraw()" style="display: none;">Withdraw</button>
+                    </div>
+                </div>
+                <div id="errorMsg"></div>
+                <div id="betAmountSelect-wrapper">
+                    <div id="betAmountSelect">
+                        <input type="hidden" id="bidAmount" value="0.01">
+                        <div class="buttons">
+                            <button id="bidAmountBtn1" class="bidAmountBtn bidAmountBtnSelected"
+                                onclick="setBetAmount(1)">0.01
+                                BNB</button>
+                            <button id="bidAmountBtn2" class="bidAmountBtn bidAmountBtnUnselected"
+                                onclick="setBetAmount(2)">0.03
+                                BNB</button>
+                            <button id="bidAmountBtn3" class="bidAmountBtn bidAmountBtnUnselected"
+                                onclick="setBetAmount(3)">0.05
+                                BNB</button>
+                        </div>
+    
+                        <div class="buttons">
+                            <input type="hidden" id="bidAmount">
+                            <button id="bidAmountBtn4" class="bidAmountBtn bidAmountBtnUnselected"
+                                onclick="setBetAmount(4)">0.1
+                                BNB</button>
+                            <button id="bidAmountBtn5" class="bidAmountBtn bidAmountBtnUnselected"
+                                onclick="setBetAmount(5)">0.2
+                                BNB</button>
+                            <button id="bidAmountBtn6" class="bidAmountBtn bidAmountBtnUnselected"
+                                onclick="setBetAmount(6)">0.5
+                                BNB</button>
+                        </div>
+    
+                        <div class="buttons">
+                            <input type="hidden" id="bidAmount">
+                            <button id="bidAmountBtn7" class="bidAmountBtn bidAmountBtnUnselected"
+                                onclick="setBetAmount(7)">1
+                                BNB</button>
+                        </div>
+                    </div>
+
+                </div>
+                
+
+
+                <div id="stats-wrapper">
+                    <div class="stats">
+                        <div style="position: absolute;">
+                            <div onclick="showLastBet()" style="text-decoration: underline; text-align: center;">(last_bet)
+                            </div>
+                        </div>
+                      
+                        <p id="gameStatus"></p>
+                        <p id="maxBet"></p>
+                    </div>
+                </div>
+
+
+                <table id="lastBetTable" style="margin: auto; display: none">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Your Last Bet</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="lastBet" style="text-align: center;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <br>
+
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js"></script>
+    <script type="text/javascript"
+        src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
+
+    <!--Script-->
+    <script type="text/javascript" src="./contract.js"></script>
+    <script type="text/javascript" src="./web3Modal.js"></script>
+
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyD5YM0p_kj1rQnCEnP4Et6mH4Ki76IF9M8",
+          authDomain: "coin--flip.firebaseapp.com",
+          projectId: "coin--flip",
+          storageBucket: "coin--flip.appspot.com",
+          messagingSenderId: "214545642192",
+          appId: "1:214545642192:web:7a685236414d3f1049e4d5",
+          measurementId: "G-SPY1BDDPEH"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+</body>
+
+</html>
